@@ -85,12 +85,11 @@ jobs:
       - name: Build and push backend image
         working-directory: starter/backend
         run: |
-          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/mp-backend
+          IMAGE_NAME=ghcr.io/yashwanthpagadala/mp-backend
           docker build \
             --tag ${IMAGE_NAME}:${{ github.sha }} \
             .
           docker push ${IMAGE_NAME}:${{ github.sha }}
-
 
   backend-deploy:
     name: Backend Deploy
@@ -125,6 +124,6 @@ jobs:
       - name: Deploy backend
         working-directory: starter/backend/k8s
         run: |
-          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/mp-backend
+          IMAGE_NAME=ghcr.io/yashwanthpagadala/mp-backend
           kustomize edit set image backend=${IMAGE_NAME}:${{ github.sha }}
           kustomize build | kubectl apply -f -
